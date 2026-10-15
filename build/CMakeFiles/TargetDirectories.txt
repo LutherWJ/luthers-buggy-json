@@ -1,0 +1,3 @@
+/home/luther/Projects/c_json/build/CMakeFiles/json_parser.dir
+/home/luther/Projects/c_json/build/CMakeFiles/edit_cache.dir
+/home/luther/Projects/c_json/build/CMakeFiles/rebuild_cache.dir
