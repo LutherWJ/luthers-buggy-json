@@ -24,13 +24,16 @@ int main(void) {
   while ((c = fgetc(fptr)) != EOF) {
 
     // Double the size of our text buffer if we run out of space
-    if (length >= capacity) {
+    if (length >= capacity - 1) {
       capacity *= 2;
-      file_buf = realloc(file_buf, capacity - 1);
+      char *new_buf = realloc(file_buf, capacity);
+      file_buf = new_buf;
 
       // Always make sure the allocation was successful
       if (file_buf == NULL) {
         printf("Failed to allocate memory");
+        free(file_buf);
+        fclose(fptr);
         return 1;
       }
     }
@@ -45,11 +48,14 @@ int main(void) {
   JsonNode_t *out_ptr = malloc(sizeof(JsonNode_t));
   if (out_ptr == NULL) {
     printf("Failed to allocate memory");
+    free(file_buf);
+    fclose(fptr);
     return 1;
   }
 
   parse_json(file_buf, out_ptr);
 
+  free(file_buf);
   fclose(fptr);
   return 0;
 }

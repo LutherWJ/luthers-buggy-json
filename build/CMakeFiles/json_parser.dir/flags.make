@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = -I/home/luther/Projects/c_json/inc
 
-C_FLAGS = -std=gnu11
+C_FLAGS = -g -std=gnu11
 

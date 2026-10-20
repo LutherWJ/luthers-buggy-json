@@ -16,4 +16,7 @@ target_sources(json_parser PRIVATE
 
 target_include_directories(json_parser PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 
+if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
 

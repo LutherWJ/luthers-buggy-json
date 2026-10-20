@@ -7,13 +7,12 @@
 #include <string.h>
 
 int init_lexer(Lexer_t *lexer, char *text, size_t text_length) {
-  ArrayList token_list;
-  int list_err = array_create(&token_list, sizeof(Token_t), TOKEN_LIST_LENGTH);
+  int list_err =
+      array_create(&lexer->token_list, sizeof(Token_t), TOKEN_LIST_LENGTH);
   if (list_err < 0) {
     return -1;
   }
 
-  lexer->token_list = &token_list;
   lexer->text = text;
   lexer->text_length = text_length;
   lexer->pos = 0;
@@ -157,7 +156,15 @@ int tokenize_json(Lexer_t *lexer) {
     }
 
     // push the token to our token array
-    array_push(lexer->token_list, &token);
+    array_push(&lexer->token_list, &token);
   }
   return 0;
+}
+
+void free_lexer(Lexer_t *lexer) {
+  if (lexer != NULL) {
+    if (lexer->token_list.data != NULL) {
+      free(lexer->token_list.data);
+    }
+  }
 }
