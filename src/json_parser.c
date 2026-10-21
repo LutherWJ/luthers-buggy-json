@@ -167,7 +167,6 @@ int build_array(TreeBuilder_t *builder, JsonNode_t *out_ptr) {
 
   while (builder->pos < builder->token_list->count) {
     Token_t *token = array_get(builder->token_list, builder->pos);
-    builder->pos++;
 
     // Check for array termination
     if (token->token_type == RBRACKET_TOK) {
@@ -208,21 +207,21 @@ int build_value(TreeBuilder_t *builder, JsonNode_t *out_ptr) {
   if (out_ptr == NULL) {
     return 1;
   }
-  Token_t *next_tok = get_next_token(builder);
+  Token_t *token = array_get(builder->token_list, builder->pos);
+  builder->pos++;
 
-  switch (next_tok->token_type) {
+  switch (token->token_type) {
   case STR_TOK: {
     // Allocate string buffer
-    char *value = malloc(sizeof(char) * next_tok->value.str_slice.length + 1);
+    char *value = malloc(sizeof(char) * token->value.str_slice.length + 1);
     if (value == NULL) {
       return 1;
     }
 
     // Slice value
-    size_t value_start = next_tok->value.str_slice.start * sizeof(char);
-    snprintf(value, next_tok->value.str_slice.length, "%s",
-             value + value_start);
-    value[next_tok->value.str_slice.length] = '\0';
+    size_t value_start = token->value.str_slice.start * sizeof(char);
+    snprintf(value, token->value.str_slice.length, "%s", value + value_start);
+    value[token->value.str_slice.length] = '\0';
 
     // populate node
     out_ptr->type = JSON_STRING;
@@ -237,11 +236,11 @@ int build_value(TreeBuilder_t *builder, JsonNode_t *out_ptr) {
   }
   case NUM_TOK:
     out_ptr->type = JSON_NUMBER;
-    out_ptr->number_value = next_tok->value.number_value;
+    out_ptr->number_value = token->value.number_value;
     break;
   case BOOL_TOK:
     out_ptr->type = JSON_BOOL;
-    out_ptr->boolean_value = next_tok->value.bool_value;
+    out_ptr->boolean_value = token->value.bool_value;
     break;
   case NULL_TOK:
     out_ptr->type = JSON_NULL;
@@ -273,7 +272,11 @@ void free_json(JsonNode_t *root) {
     // recursivley call this function for nested JSON nodes
     for (size_t i = 0; i < root->json_object.values.count; i++) {
       JsonNode_t *value = array_get(&root->json_object.values, i);
-      free_json(value);
+      if (value->type == JSON_STRING) {
+        free(value->string_value);
+      } else if (value->type == JSON_OBJECT || value->type == JSON_ARRAY) {
+        free_json(value);
+      }
     }
 
     array_free(&root->json_object.keys);
@@ -283,18 +286,22 @@ void free_json(JsonNode_t *root) {
   case JSON_ARRAY: {
     for (size_t i = 0; i < root->json_array.count; i++) {
       JsonNode_t *value = array_get(&root->json_array, i);
-      free_json(value);
+      if (value->type == JSON_STRING) {
+        free(value->string_value);
+      }
     }
     array_free(&root->json_array);
     break;
   }
-  case JSON_STRING:
+  case JSON_STRING: {
+
     if (root->string_value != NULL) {
       free(root->string_value);
     }
     break;
   }
-  free(root);
+    free(root);
+  }
 }
 
 void print_token(char *json_text, Token_t *token) {
@@ -319,10 +326,15 @@ void print_token(char *json_text, Token_t *token) {
     break;
   case STR_TOK: {
     // print string content within quotes
-    size_t length = token->value.str_slice.length;
+    size_t length = token->value.str_slice.length + 1;
     // Pointer arithmatic to find the address of the start of our string val
     size_t start_offset = token->value.str_slice.start * sizeof(char);
     char str[length];
+
+    // Null terminate the string
+    str[length] = '\0';
+
+    // slice and print
     snprintf(str, length, "%s", json_text + start_offset);
     printf("\"%s\"\n", str);
     break;
