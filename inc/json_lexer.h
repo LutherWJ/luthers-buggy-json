@@ -25,8 +25,8 @@ typedef struct {
   TokenType_t token_type;
   union {
     struct {
-      char *start;
-      size_t length;
+      size_t start;  // Start position of the string
+      size_t length; // Length of the string
     } str_slice;
     bool bool_value;
     double number_value;

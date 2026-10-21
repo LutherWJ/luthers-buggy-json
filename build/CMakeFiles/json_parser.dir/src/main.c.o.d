@@ -3,6 +3,7 @@ CMakeFiles/json_parser.dir/src/main.c.o: \
  /home/luther/Projects/c_json/inc/json_parser.h \
  /home/luther/Projects/c_json/inc/array_list.h \
  /usr/lib/gcc/x86_64-linux-gnu/15/include/stddef.h \
+ /home/luther/Projects/c_json/inc/json_lexer.h \
  /usr/lib/gcc/x86_64-linux-gnu/15/include/stdbool.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \

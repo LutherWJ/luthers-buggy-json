@@ -52,7 +52,7 @@ int array_push(ArrayList *list, const void *item) {
 }
 
 // Returns pointer to data at the given index
-void *array_get(ArrayList *list, size_t index) {
+void *array_get(const ArrayList *list, size_t index) {
   if (list == NULL || index >= list->count) {
     return NULL;
   }

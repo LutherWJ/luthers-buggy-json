@@ -12,7 +12,7 @@ typedef struct {
 
 int array_create(ArrayList *list, size_t item_size, size_t initial_capacity);
 int array_push(ArrayList *list, const void *item);
-void *array_get(ArrayList *list, size_t index);
+void *array_get(const ArrayList *list, size_t index);
 void array_free(ArrayList *list);
 
 #endif

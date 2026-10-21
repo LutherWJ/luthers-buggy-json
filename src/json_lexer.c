@@ -27,7 +27,7 @@ Token_t parse_string(Lexer_t *lexer) {
   lexer->pos++;
   size_t start_pos = lexer->pos; // Record start index of the string
 
-  token.value.str_slice.start = lexer->text + (sizeof(char) + start_pos);
+  token.value.str_slice.start = start_pos;
 
   // Iterate through until we reach the closing quote
   while (lexer->pos < lexer->text_length && lexer->text[lexer->pos] != '"') {
@@ -53,7 +53,7 @@ Token_t parse_number(Lexer_t *lexer) {
 
   // Record start and end
   size_t end_pos = lexer->pos;
-  size_t length = end_pos - start_pos;
+  size_t length = end_pos - start_pos + 1;
   size_t size = (sizeof(char) * length);
 
   // slice the string into a character array then convert to a double

@@ -53,8 +53,10 @@ int main(void) {
     return 1;
   }
 
-  parse_json(file_buf, out_ptr);
+  JsonNode_t *json = parse_json(file_buf);
 
+  printf("done\n");
+  free_json(json);
   free(file_buf);
   fclose(fptr);
   return 0;
