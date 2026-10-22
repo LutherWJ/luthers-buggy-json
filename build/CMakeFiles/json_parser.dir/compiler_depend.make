@@ -182,6 +182,7 @@ CMakeFiles/json_parser.dir/src/json_parser.c.o: /home/luther/Projects/c_json/src
 
 CMakeFiles/json_parser.dir/src/main.c.o: /home/luther/Projects/c_json/src/main.c \
   /home/luther/Projects/c_json/inc/array_list.h \
+  /home/luther/Projects/c_json/inc/json_explorer.h \
   /home/luther/Projects/c_json/inc/json_lexer.h \
   /home/luther/Projects/c_json/inc/json_parser.h \
   /usr/include/alloca.h \
@@ -269,6 +270,8 @@ CMakeFiles/json_parser.dir/src/array_list.c.o:
 /usr/lib/x86_64-linux-gnu/crti.o:
 
 /usr/lib/x86_64-linux-gnu/Scrt1.o:
+
+/home/luther/Projects/c_json/inc/json_explorer.h:
 
 /home/luther/Projects/c_json/src/main.c:
 

@@ -2,6 +2,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/json_parser.dir/link.d"
   "CMakeFiles/json_parser.dir/src/array_list.c.o"
   "CMakeFiles/json_parser.dir/src/array_list.c.o.d"
+  "CMakeFiles/json_parser.dir/src/json_explorer.c.o"
+  "CMakeFiles/json_parser.dir/src/json_explorer.c.o.d"
   "CMakeFiles/json_parser.dir/src/json_lexer.c.o"
   "CMakeFiles/json_parser.dir/src/json_lexer.c.o.d"
   "CMakeFiles/json_parser.dir/src/json_parser.c.o"

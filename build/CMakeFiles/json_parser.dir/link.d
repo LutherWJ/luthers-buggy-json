@@ -6,6 +6,7 @@ json_parser: \
   CMakeFiles/json_parser.dir/src/json_parser.c.o \
   CMakeFiles/json_parser.dir/src/json_lexer.c.o \
   CMakeFiles/json_parser.dir/src/array_list.c.o \
+  CMakeFiles/json_parser.dir/src/json_explorer.c.o \
   /usr/lib/gcc/x86_64-linux-gnu/15/libgcc.a \
   /usr/lib/gcc/x86_64-linux-gnu/15/libgcc_s.so \
   /usr/lib/gcc/x86_64-linux-gnu/15/libgcc_s.so \
@@ -41,6 +42,8 @@ CMakeFiles/json_parser.dir/src/json_parser.c.o:
 CMakeFiles/json_parser.dir/src/json_lexer.c.o:
 
 CMakeFiles/json_parser.dir/src/array_list.c.o:
+
+CMakeFiles/json_parser.dir/src/json_explorer.c.o:
 
 /usr/lib/gcc/x86_64-linux-gnu/15/libgcc.a:
 

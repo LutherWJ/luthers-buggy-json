@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/luther/Projects/c_json/src/array_list.c" "CMakeFiles/json_parser.dir/src/array_list.c.o" "gcc" "CMakeFiles/json_parser.dir/src/array_list.c.o.d"
+  "/home/luther/Projects/c_json/src/json_explorer.c" "CMakeFiles/json_parser.dir/src/json_explorer.c.o" "gcc" "CMakeFiles/json_parser.dir/src/json_explorer.c.o.d"
   "/home/luther/Projects/c_json/src/json_lexer.c" "CMakeFiles/json_parser.dir/src/json_lexer.c.o" "gcc" "CMakeFiles/json_parser.dir/src/json_lexer.c.o.d"
   "/home/luther/Projects/c_json/src/json_parser.c" "CMakeFiles/json_parser.dir/src/json_parser.c.o" "gcc" "CMakeFiles/json_parser.dir/src/json_parser.c.o.d"
   "/home/luther/Projects/c_json/src/main.c" "CMakeFiles/json_parser.dir/src/main.c.o" "gcc" "CMakeFiles/json_parser.dir/src/main.c.o.d"

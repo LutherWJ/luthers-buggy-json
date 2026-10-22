@@ -153,6 +153,30 @@ src/array_list.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/src/array_list.c.s
 .PHONY : src/array_list.c.s
 
+src/json_explorer.o: src/json_explorer.c.o
+.PHONY : src/json_explorer.o
+
+# target to build an object file
+src/json_explorer.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/src/json_explorer.c.o
+.PHONY : src/json_explorer.c.o
+
+src/json_explorer.i: src/json_explorer.c.i
+.PHONY : src/json_explorer.i
+
+# target to preprocess a source file
+src/json_explorer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/src/json_explorer.c.i
+.PHONY : src/json_explorer.c.i
+
+src/json_explorer.s: src/json_explorer.c.s
+.PHONY : src/json_explorer.s
+
+# target to generate assembly for a file
+src/json_explorer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/json_parser.dir/build.make CMakeFiles/json_parser.dir/src/json_explorer.c.s
+.PHONY : src/json_explorer.c.s
+
 src/json_lexer.o: src/json_lexer.c.o
 .PHONY : src/json_lexer.o
 
@@ -237,6 +261,9 @@ help:
 	@echo "... src/array_list.o"
 	@echo "... src/array_list.i"
 	@echo "... src/array_list.s"
+	@echo "... src/json_explorer.o"
+	@echo "... src/json_explorer.i"
+	@echo "... src/json_explorer.s"
 	@echo "... src/json_lexer.o"
 	@echo "... src/json_lexer.i"
 	@echo "... src/json_lexer.s"

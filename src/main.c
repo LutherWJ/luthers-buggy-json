@@ -1,3 +1,4 @@
+#include "json_explorer.h"
 #include "json_parser.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,7 +6,7 @@
 #define INITIAL_BUFFER_SIZE 128
 
 int main(void) {
-  const char filename[10] = "test.json";
+  const char filename[10] = "test2.json";
 
   // Get file handle
   FILE *fptr = fopen(filename, "r");
@@ -43,17 +44,10 @@ int main(void) {
 
   // Strings in C must be terminated with \0
   file_buf[length] = '\0';
-
-  // Allocate our memory for our JSON data structure
-  JsonNode_t *out_ptr = malloc(sizeof(JsonNode_t));
-  if (out_ptr == NULL) {
-    printf("Failed to allocate memory");
-    free(file_buf);
-    fclose(fptr);
-    return 1;
-  }
-
   JsonNode_t *json = parse_json(file_buf);
+
+  JsonNode_t *value = json_findkey(json, "CoolName");
+  printf("%s\n", value->string_value);
 
   printf("done\n");
   free_json(json);

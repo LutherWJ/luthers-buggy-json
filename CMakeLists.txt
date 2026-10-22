@@ -12,6 +12,7 @@ target_sources(json_parser PRIVATE
     src/json_parser.c
     src/json_lexer.c 
     src/array_list.c
+    src/json_explorer.c
 )
 
 target_include_directories(json_parser PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/inc)
