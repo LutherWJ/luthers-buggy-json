@@ -52,6 +52,28 @@ CMakeFiles/json_parser.dir/src/array_list.c.o: /home/luther/Projects/c_json/src/
   /usr/include/x86_64-linux-gnu/sys/types.h \
   /usr/lib/gcc/x86_64-linux-gnu/15/include/stddef.h
 
+CMakeFiles/json_parser.dir/src/json_explorer.c.o: /home/luther/Projects/c_json/src/json_explorer.c \
+  /home/luther/Projects/c_json/inc/array_list.h \
+  /home/luther/Projects/c_json/inc/json_explorer.h \
+  /home/luther/Projects/c_json/inc/json_lexer.h \
+  /home/luther/Projects/c_json/inc/json_parser.h \
+  /usr/include/features-time64.h \
+  /usr/include/features.h \
+  /usr/include/stdc-predef.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
+  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+  /usr/include/x86_64-linux-gnu/bits/long-double.h \
+  /usr/include/x86_64-linux-gnu/bits/timesize.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+  /usr/lib/gcc/x86_64-linux-gnu/15/include/stdbool.h \
+  /usr/lib/gcc/x86_64-linux-gnu/15/include/stddef.h
+
 CMakeFiles/json_parser.dir/src/json_lexer.c.o: /home/luther/Projects/c_json/src/json_lexer.c \
   /home/luther/Projects/c_json/inc/array_list.h \
   /home/luther/Projects/c_json/inc/json_lexer.h \
@@ -254,6 +276,7 @@ json_parser: /lib/x86_64-linux-gnu/libc.so.6 \
   /usr/lib/gcc/x86_64-linux-gnu/15/libgcc_s.so \
   /usr/lib/x86_64-linux-gnu/libc_nonshared.a \
   CMakeFiles/json_parser.dir/src/array_list.c.o \
+  CMakeFiles/json_parser.dir/src/json_explorer.c.o \
   CMakeFiles/json_parser.dir/src/json_lexer.c.o \
   CMakeFiles/json_parser.dir/src/json_parser.c.o \
   CMakeFiles/json_parser.dir/src/main.c.o
@@ -263,6 +286,8 @@ CMakeFiles/json_parser.dir/src/main.c.o:
 
 CMakeFiles/json_parser.dir/src/json_lexer.c.o:
 
+CMakeFiles/json_parser.dir/src/json_explorer.c.o:
+
 CMakeFiles/json_parser.dir/src/array_list.c.o:
 
 /usr/lib/gcc/x86_64-linux-gnu/15/libgcc.a:
@@ -271,19 +296,11 @@ CMakeFiles/json_parser.dir/src/array_list.c.o:
 
 /usr/lib/x86_64-linux-gnu/Scrt1.o:
 
-/home/luther/Projects/c_json/inc/json_explorer.h:
-
 /home/luther/Projects/c_json/src/main.c:
-
-/usr/lib/x86_64-linux-gnu/libc_nonshared.a:
-
-/home/luther/Projects/c_json/inc/json_parser.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/15/crtbeginS.o:
 
 /home/luther/Projects/c_json/src/json_parser.c:
-
-/usr/lib/gcc/x86_64-linux-gnu/15/include/stdbool.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
 
@@ -291,9 +308,11 @@ CMakeFiles/json_parser.dir/src/array_list.c.o:
 
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
-/usr/include/alloca.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/alloca.h:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
@@ -371,8 +390,6 @@ CMakeFiles/json_parser.dir/src/array_list.c.o:
 
 /usr/include/features.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
-
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/15/include/stddef.h:
@@ -391,6 +408,14 @@ CMakeFiles/json_parser.dir/src/array_list.c.o:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
+
+/usr/lib/x86_64-linux-gnu/libc_nonshared.a:
+
+/home/luther/Projects/c_json/inc/json_parser.h:
+
 CMakeFiles/json_parser.dir/src/json_parser.c.o:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
@@ -401,10 +426,6 @@ CMakeFiles/json_parser.dir/src/json_parser.c.o:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
-
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h:
@@ -413,9 +434,15 @@ CMakeFiles/json_parser.dir/src/json_parser.c.o:
 
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
+/usr/lib/gcc/x86_64-linux-gnu/15/include/stdbool.h:
+
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
+
+/home/luther/Projects/c_json/src/json_explorer.c:
+
+/home/luther/Projects/c_json/inc/json_explorer.h:
 
 /home/luther/Projects/c_json/inc/json_lexer.h:
 

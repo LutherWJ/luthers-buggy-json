@@ -6,7 +6,7 @@
 #define INITIAL_BUFFER_SIZE 128
 
 int main(void) {
-  const char filename[10] = "test2.json";
+  const char filename[10] = "test.json";
 
   // Get file handle
   FILE *fptr = fopen(filename, "r");
@@ -45,9 +45,6 @@ int main(void) {
   // Strings in C must be terminated with \0
   file_buf[length] = '\0';
   JsonNode_t *json = parse_json(file_buf);
-
-  JsonNode_t *value = json_findkey(json, "CoolName");
-  printf("%s\n", value->string_value);
 
   printf("done\n");
   free_json(json);
