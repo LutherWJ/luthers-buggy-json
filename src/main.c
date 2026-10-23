@@ -1,3 +1,4 @@
+#include "array_list.h"
 #include "json_explorer.h"
 #include "json_parser.h"
 #include <stdio.h>
@@ -16,35 +17,29 @@ int main(void) {
   }
 
   // Allocate memory to hold the text content of the file
-  char *file_buf = malloc(sizeof(char) * INITIAL_BUFFER_SIZE);
-  size_t length = 0;
-  size_t capacity = INITIAL_BUFFER_SIZE;
+  ArrayList file_buf;
+  int result = array_create(&file_buf, sizeof(char), INITIAL_BUFFER_SIZE);
+  if (result != 0) {
+    return 1;
+  }
 
   // Read file 4 bytes at a time
   int c;
   while ((c = fgetc(fptr)) != EOF) {
-
-    // Double the size of our text buffer if we run out of space
-    if (length >= capacity - 1) {
-      capacity *= 2;
-      char *new_buf = realloc(file_buf, capacity);
-      file_buf = new_buf;
-
-      // Always make sure the allocation was successful
-      if (file_buf == NULL) {
-        printf("Failed to allocate memory");
-        free(file_buf);
-        fclose(fptr);
-        return 1;
-      }
+    char byte = (char)c;
+    result = array_push(&file_buf, &byte);
+    if (result != 0) {
+      return 1;
     }
-
-    file_buf[length++] = (char)c;
   }
 
   // Strings in C must be terminated with \0
-  file_buf[length] = '\0';
-  JsonNode_t *json = parse_json(file_buf);
+  char sentinal = '\0';
+  result = array_push(&file_buf, &sentinal);
+  if (result != 0) {
+    return 1;
+  }
+  JsonNode_t *json = parse_json((char *)file_buf.data);
 
   // Time to verify if it actually worked by searching for a specific value
   // This code will be tailored specifically for the test.json file
@@ -59,7 +54,7 @@ int main(void) {
   }
 
   free_json(json);
-  free(file_buf);
+  array_free(&file_buf);
   fclose(fptr);
   return 0;
 }
