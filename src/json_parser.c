@@ -17,20 +17,22 @@ JsonNode_t *parse_json(char *json_text) {
   }
 
   // Print output to make sure nothing is bugged (it is)
+  printf("=================TOKEN OUTPUT===================\n");
   for (size_t i = 0; i < lexer.token_list.count; i++) {
     Token_t *token = array_get(&lexer.token_list, i);
     print_token(lexer.text, token);
   }
+  printf("===============END TOKEN OUTPUT=================\n");
 
   // Begin building the data structure in memory
-  JsonNode_t *json_tree = build_tree(&lexer.token_list);
+  JsonNode_t *json_tree = build_tree(&lexer.token_list, lexer.text);
 
   // clean up memory
   free_lexer(&lexer);
   return json_tree;
 }
 
-JsonNode_t *build_tree(const ArrayList *tokens) {
+JsonNode_t *build_tree(const ArrayList *tokens, char *json_text) {
   if (tokens == NULL) {
     return NULL;
   }
@@ -42,7 +44,7 @@ JsonNode_t *build_tree(const ArrayList *tokens) {
 
   // Start at position 1 since we immediately read the first token
   Token_t *start_token = (Token_t *)array_get(tokens, 0);
-  TreeBuilder_t builder = {1, tokens, json_tree};
+  TreeBuilder_t builder = {1, tokens, json_tree, json_text};
 
   // JSON either starts with an array or an object, nothing else.
   switch (start_token->token_type) {
@@ -98,7 +100,8 @@ int build_object(TreeBuilder_t *builder, JsonNode_t *out_ptr) {
 
       // slice the string into the buffer
       size_t key_start = next_tok->value.str_slice.start * sizeof(char);
-      snprintf(key, next_tok->value.str_slice.length, "%s", key + key_start);
+      snprintf(key, next_tok->value.str_slice.length + 1, "%s",
+               builder->json_text + key_start);
       key[next_tok->value.str_slice.length] = '\0';
 
       // push the pointer to our key list
@@ -123,7 +126,7 @@ int build_object(TreeBuilder_t *builder, JsonNode_t *out_ptr) {
       }
 
       // Push it to the value list
-      result = array_push(&out_ptr->json_object.keys, &value);
+      result = array_push(&out_ptr->json_object.values, &value);
       if (result != 0) {
         return 1;
       }
@@ -212,16 +215,17 @@ int build_value(TreeBuilder_t *builder, JsonNode_t *out_ptr) {
 
   switch (token->token_type) {
   case STR_TOK: {
+    size_t length = token->value.str_slice.length + 1;
     // Allocate string buffer
-    char *value = malloc(sizeof(char) * token->value.str_slice.length + 1);
+    char *value = malloc(sizeof(char) * length);
     if (value == NULL) {
       return 1;
     }
 
     // Slice value
     size_t value_start = token->value.str_slice.start * sizeof(char);
-    snprintf(value, token->value.str_slice.length, "%s", value + value_start);
-    value[token->value.str_slice.length] = '\0';
+    snprintf(value, length, "%s", builder->json_text + value_start);
+    value[length] = '\0';
 
     // populate node
     out_ptr->type = JSON_STRING;
@@ -307,10 +311,10 @@ void free_json(JsonNode_t *root) {
 void print_token(char *json_text, Token_t *token) {
   switch (token->token_type) {
   case LBRACE_TOK:
-    printf("Opening object\n");
+    printf("\nOpening object\n");
     break;
   case RBRACE_TOK:
-    printf("Close object\n");
+    printf("\nClose object\n");
     break;
   case LBRACKET_TOK:
     printf("Open array\n");
@@ -319,7 +323,7 @@ void print_token(char *json_text, Token_t *token) {
     printf("Close array\n");
     break;
   case COLON_TOK:
-    printf(":\n");
+    printf(": ");
     break;
   case COMMA_TOK:
     printf(",\n");
@@ -336,12 +340,12 @@ void print_token(char *json_text, Token_t *token) {
 
     // slice and print
     snprintf(str, length, "%s", json_text + start_offset);
-    printf("\"%s\"\n", str);
+    printf("\"%s\"", str);
     break;
   }
   case NUM_TOK:
     // print out the number
-    printf("number: %f\n", token->value.number_value);
+    printf("%f", token->value.number_value);
     break;
   default:
     printf("Misc Token\n");
@@ -355,4 +359,5 @@ inline Token_t *get_next_token(TreeBuilder_t *builder) {
     builder->pos++;
     return token;
   }
+  return NULL;
 }

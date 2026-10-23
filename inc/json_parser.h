@@ -37,10 +37,11 @@ typedef struct {
   size_t pos;
   const ArrayList *token_list;
   JsonNode_t *root;
+  char *json_text;
 } TreeBuilder_t;
 
 JsonNode_t *parse_json(char *json_text);
-JsonNode_t *build_tree(const ArrayList *tokens);
+JsonNode_t *build_tree(const ArrayList *tokens, char *json_text);
 int build_object(TreeBuilder_t *builder, JsonNode_t *out_ptr);
 int build_array(TreeBuilder_t *builder, JsonNode_t *out_ptr);
 int build_value(TreeBuilder_t *builder, JsonNode_t *out_ptr);
