@@ -25,10 +25,10 @@ struct JsonNode_t {
     char *string_value;
     double number_value;
     bool boolean_value;
-    ArrayList json_array;
+    ArrayList json_array; // Array of JsonNode_t
     struct {
-      ArrayList keys;
-      ArrayList values;
+      ArrayList keys;   // Array of char *
+      ArrayList values; // Array of JsonNode_t
     } json_object;
   };
 };
@@ -48,6 +48,7 @@ int build_value(TreeBuilder_t *builder, JsonNode_t *out_ptr);
 int build_pair(TreeBuilder_t *builder, JsonNode_t *out_ptr);
 Token_t *get_next_token(TreeBuilder_t *builder);
 void print_token(char *json_text, Token_t *token);
+void free_node(JsonNode_t *node);
 void free_json(JsonNode_t *root);
 
 #endif

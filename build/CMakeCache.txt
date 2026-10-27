@@ -48,7 +48,7 @@ CMAKE_ASM_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=Debug
+CMAKE_BUILD_TYPE:STRING=
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
@@ -223,15 +223,6 @@ C_JSON_PARSER_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 C_JSON_PARSER_SOURCE_DIR:STATIC=/home/luther/Projects/c_json
-
-//Value Computed by CMake
-RTOS_DEMO2_BINARY_DIR:STATIC=/home/luther/Projects/c_json/build
-
-//Value Computed by CMake
-RTOS_DEMO2_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-RTOS_DEMO2_SOURCE_DIR:STATIC=/home/luther/Projects/c_json
 
 
 ########################

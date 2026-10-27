@@ -32,7 +32,7 @@ int array_push(ArrayList *list, const void *item) {
   // Check if we are exceeding the current capacity.
   // if so double the size of the array.
   if (list->count >= list->capacity) {
-    size_t new_cap = (list->capacity * 2);
+    size_t new_cap = list->capacity * 2;
     void *new_data = realloc(list->data, new_cap * list->item_size);
 
     if (new_data == NULL) {

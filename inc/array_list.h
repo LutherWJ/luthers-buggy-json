@@ -1,7 +1,7 @@
-#include <stddef.h>
-
 #ifndef ARRAY_LIST
 #define ARRAY_LIST
+
+#include <stddef.h>
 
 typedef struct {
   void *data;

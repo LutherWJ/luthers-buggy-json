@@ -105,7 +105,7 @@ int build_object(TreeBuilder_t *builder, JsonNode_t *out_ptr) {
       key[next_tok->value.str_slice.length] = '\0';
 
       // push the pointer to our key list
-      int result = array_push(&out_ptr->json_object.keys, key);
+      int result = array_push(&out_ptr->json_object.keys, &key);
       if (result != 0) {
         free(key);
         return 1;
@@ -257,55 +257,64 @@ int build_value(TreeBuilder_t *builder, JsonNode_t *out_ptr) {
   return 0;
 }
 
-// Recursively frees all nested nodes
+// Recursively frees all internal resources owned by a node
+void free_node(JsonNode_t *node) {
+  if (node == NULL) {
+    return;
+  }
+
+  switch (node->type) {
+  case JSON_OBJECT: {
+    // Free all of the string buffers allocated for the keys
+    for (size_t i = 0; i < node->json_object.keys.count; i++) {
+      char **key = array_get(&node->json_object.keys, i);
+      if (key != NULL && *key != NULL) {
+        free(*key);
+      }
+    }
+
+    // Recursively call free_node for nested JSON values
+    for (size_t i = 0; i < node->json_object.values.count; i++) {
+      JsonNode_t *value = array_get(&node->json_object.values, i);
+      if (value != NULL) {
+        free_node(value);
+      }
+    }
+
+    array_free(&node->json_object.keys);
+    array_free(&node->json_object.values);
+    break;
+  }
+  case JSON_ARRAY: {
+    for (size_t i = 0; i < node->json_array.count; i++) {
+      JsonNode_t *value = array_get(&node->json_array, i);
+      if (value != NULL) {
+        free_node(value);
+      }
+    }
+    array_free(&node->json_array);
+    break;
+  }
+  case JSON_STRING: {
+    if (node->string_value != NULL) {
+      free(node->string_value);
+      node->string_value = NULL;
+    }
+    break;
+  }
+  default:
+    break;
+  }
+}
+
+// Recursively frees all nested resources and frees the root node
 void free_json(JsonNode_t *root) {
   if (root == NULL) {
     return;
   }
 
-  switch (root->type) {
-  case JSON_OBJECT: {
-    // Free all of the string buffers allocated for the keys
-    for (size_t i = 0; i < root->json_object.keys.count; i++) {
-      char *key = array_get(&root->json_object.keys, i);
-      if (key != NULL) {
-        free(key);
-      }
-    }
-
-    // recursivley call this function for nested JSON nodes
-    for (size_t i = 0; i < root->json_object.values.count; i++) {
-      JsonNode_t *value = array_get(&root->json_object.values, i);
-      if (value->type == JSON_STRING) {
-        free(value->string_value);
-      } else if (value->type == JSON_OBJECT || value->type == JSON_ARRAY) {
-        free_json(value);
-      }
-    }
-
-    array_free(&root->json_object.keys);
-    array_free(&root->json_object.values);
-    break;
-  }
-  case JSON_ARRAY: {
-    for (size_t i = 0; i < root->json_array.count; i++) {
-      JsonNode_t *value = array_get(&root->json_array, i);
-      if (value->type == JSON_STRING) {
-        free(value->string_value);
-      }
-    }
-    array_free(&root->json_array);
-    break;
-  }
-  case JSON_STRING: {
-
-    if (root->string_value != NULL) {
-      free(root->string_value);
-    }
-    break;
-  }
-    free(root);
-  }
+  free_node(root);
+  free(root);
 }
 
 void print_token(char *json_text, Token_t *token) {

@@ -8,8 +8,8 @@ JsonNode_t *json_findkey(JsonNode_t *json, char *target) {
   }
 
   for (size_t i = 0; i < json->json_object.keys.count; i++) {
-    char *key = array_get(&json->json_object.keys, i);
-    if (strcmp(target, key) == 0) {
+    char **key = array_get(&json->json_object.keys, i);
+    if (strcmp(target, *key) == 0) {
       return (JsonNode_t *)array_get(&json->json_object.values, i);
     }
   }
@@ -26,9 +26,9 @@ JsonNode_t *json_findkey_recursive(JsonNode_t *json, char *target) {
   array_create(&obj_list, sizeof(JsonNode_t *), ARRAYLIST_INIT_SIZE);
 
   for (size_t i = 0; i < json->json_object.keys.count; i++) {
-    char *key = array_get(&json->json_object.keys, i);
+    char **key = array_get(&json->json_object.keys, i);
     JsonNode_t *value = array_get(&json->json_object.values, i);
-    if (strcmp(target, key) == 0) {
+    if (strcmp(target, *key) == 0) {
       array_free(&obj_list);
       return value;
     }

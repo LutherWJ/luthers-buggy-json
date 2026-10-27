@@ -46,7 +46,7 @@ int main(void) {
 
   JsonNode_t *node = array_get(&json->json_array, 0); // Grab first object
   JsonNode_t *order_id = json_findkey(node, "OrderID");
-  printf("Attempted to locate OrderID of first object in test.json\n");
+  printf("Attempting to locate OrderID of first object in test.json\n");
   if (order_id != NULL && order_id->type == JSON_STRING) {
     printf("OrderID: %s\n", order_id->string_value);
   } else {
